@@ -9,32 +9,41 @@ import (
 	"syscall"
 )
 
-const DefaultGreetingMessage = "Hello World!"
+// httpserver 8080
+// greeting message
+
+const GreetingMessage = "Hello Istanbul Coders!!!!!"
 
 func main() {
-	// start new http client server
-	greeting := os.Getenv("GREETING")
-	if greeting == "" {
-		greeting = DefaultGreetingMessage
-	}
-	ch := make(chan os.Signal, 1)
-	signal.Notify(ch, os.Interrupt, syscall.SIGKILL, syscall.SIGTERM)
+	var m string
 
-	http.HandleFunc("/greetings", greetings(greeting))
+	mEnv := os.Getenv("GREETING_MESSAGE")
+
+	if mEnv != "" {
+		m = mEnv
+	} else {
+		m = GreetingMessage
+	}
+
+	ch := make(chan os.Signal, 1)
+
+	signal.Notify(ch, os.Interrupt, syscall.SIGTERM)
+
+	http.HandleFunc("/greeting", greeting(m))
 
 	go func() {
 		log.Fatalln(http.ListenAndServe(":8080", nil))
 	}()
 
-	fmt.Println("Application is started on port 8080")
+	log.Println("Server is ready to handle requests at :8080")
 
 	<-ch
 
-	fmt.Println("Application is shutting down")
+	log.Println("Shutting down...")
 }
 
-func greetings(gm string) func(w http.ResponseWriter, r *http.Request) {
+func greeting(m string) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(fmt.Sprintf("Greetings %s!", gm)))
+		w.Write([]byte(fmt.Sprintf("%s", m)))
 	}
 }
