@@ -12,7 +12,7 @@ import (
 // httpserver 8080
 // greeting message
 
-const GreetingMessage = "Hello Istanbul Coders!!!!!"
+const GreetingMessage = "Hello GDG Istanbul!!!!!!!"
 
 func main() {
 	var m string

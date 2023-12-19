@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: gdg-istanbul-event-multi-arch
+  name: gdg-istanbul-event-multi-arch
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: gdg-istanbul-event-multi-arch
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: gdg-istanbul-event-multi-arch
+    spec:
+      containers:
+      - image: ghcr.io/developer-guy/gdg-istanbul-event:latest
+        name: hello-world-go
+        resources: {}
+status: {}

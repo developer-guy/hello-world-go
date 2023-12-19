@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: gdg-istanbul-event-arm64
+  name: gdg-istanbul-event-arm64
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: gdg-istanbul-event-arm64
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: gdg-istanbul-event-arm64
+    spec:
+      nodeSelector:
+        kubernetes.io/arch: arm64
+      containers:
+      - image: ghcr.io/developer-guy/gdg-istanbul-event:arm64
+        name: hello-world-go
+        resources: {}
+status: {}

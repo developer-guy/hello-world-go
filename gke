@@ -1,0 +1,5 @@
+gcloud container node-pools create tau-t2-arm-node-pool \
+    --cluster istanbul-coders-event \
+    --node-locations us-central1-a \
+    --machine-type t2a-standard-16 \
+    --num-nodes 1
